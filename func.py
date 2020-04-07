@@ -72,7 +72,7 @@ def SendToELK(ELK_format,ELK_index_name):
     # push to ELK
     headers = {'Content-type': 'application/json'}
     #IP will be changed to DNS later
-    ELK_url = 'http://132.145.12.178:9200/'+ ELK_index_name +'/cost/_bulk'
+    ELK_url = 'http://My_ElasticSearch_IP:9200/'+ ELK_index_name +'/cost/_bulk'
     response = requests.post(url=ELK_url, data=ELK_format, headers=headers)
     print("ELK Bulk is completed and response code: {}".format(response.status_code))
     #print(response.content)
