@@ -33,7 +33,7 @@ def get_charges(idcs, start_time, end_time):
     resp = requests.get(
         'https://itra.oraclecloud.com/metering/api/v1/usagecost/'+cloud_acct,
         auth=(username, password),
-        headers={'X-ID-TENANT-NAME': idcs_guid},
+        headers={'X-ID-TENANT-NAME': idcs_guid, 'Accept-Encoding':'*'},
         params=url_params
     )
     #print(resp.content)
@@ -71,8 +71,8 @@ def CostPerService(tenancyName, daily_usage,startTime,endTime,currency,ELK_index
 def SendToELK(ELK_format,ELK_index_name):
     # push to ELK
     headers = {'Content-type': 'application/json'}
-    #IP will be changed to DNS later
-    ELK_url = 'http://My_ElasticSearch_IP:9200/'+ ELK_index_name +'/cost/_bulk'
+    #Your Elastic search endpoint
+    ELK_url = 'http://My_ElasticSearch_IP/'+ ELK_index_name +'/cost/_bulk'
     response = requests.post(url=ELK_url, data=ELK_format, headers=headers)
     print("ELK Bulk is completed and response code: {}".format(response.status_code))
     #print(response.content)
